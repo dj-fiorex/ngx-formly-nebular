@@ -11,6 +11,12 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
+    "paths": {
+      "ngx-formly-nebular": [
+        "dist/ngx-formly-nebular/ngx-formly-nebular",
+        "dist/ngx-formly-nebular"
+      ]
+    },
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
