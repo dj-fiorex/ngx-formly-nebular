@@ -1,24 +1,50 @@
-# NgxFormlyNebular
+# Ngx Formly Nebular
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
+This ngx-formly plugin uses Nebular component to render your form!
 
-## Code scaffolding
+## How to use
 
-Run `ng generate component component-name --project ngx-formly-nebular` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-formly-nebular`.
-> Note: Don't forget to add `--project ngx-formly-nebular` or else it will be added to the default project in your `angular.json` file. 
+Read the documentation of [ngx-formly](https://https://formly.dev/).
 
-## Build
+### Different properties than ngx-formly
 
-Run `ng build ngx-formly-nebular` to build the project. The build artifacts will be stored in the `dist/` directory.
+```javascript
+templateOptions: {
+    //This configuration add a <p> after or before the input
+     description:
+        'Questo checkbox segnala che la nuova entità è una nuova entità',
+      descriptionBefore: true,
+      descriptionAfter: false,
+}
+```
 
-## Publishing
+### Components
 
-After building your library with `ng build ngx-formly-nebular`, go to the dist folder `cd dist/ngx-formly-nebular` and run `npm publish`.
+- Date
 
-## Running unit tests
+  ```javascript
+   {
+          className: 'col-md-6',
+          key: 'dateRange',
+          type: 'date',
+          templateOptions: {
+            label: 'Date range',
+            placeholder: 'Seleziona un range di date',
+            type: 'multiple', //Could be 'single' or 'multiple'
+            required: true,
+          },
+    },
+  ```
 
-Run `ng test ngx-formly-nebular` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Changelog
 
-## Further help
+- Version 0.1.1:
+  - General fix
+  - Add date type
+  - Add demo project
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Development
+
+- In the main folder
+  - `npm i` to install deps
+  - `npm run start:demo` to start demo in development mode, so you can edit the library and show the result live

@@ -38,8 +38,8 @@ templateOptions: {
 
 ## Changelog
 
-- Version 0.1.0:
-  - Generall fix
+- Version 0.1.1:
+  - General fix
   - Add date type
   - Add demo project
 
