@@ -4,11 +4,19 @@ import { FieldType } from '@ngx-formly/core';
 @Component({
   selector: 'formly-field-multicheckbox',
   template: `
+    <p
+      style="margin-bottom: 10px;"
+      class="subtitle-2"
+      *ngIf="to['descriptionBefore']"
+    >
+      {{ to.description }}
+    </p>
     <nb-checkbox
       *ngFor="
         let option of to.options | formlySelectOptions: field | async;
         let i = index
       "
+      [class]="!to['horizontal'] ? 'nb-checkbox-vertical' : ''"
       [id]="id + '_' + i"
       [status]="
         formControl.touched
@@ -26,15 +34,36 @@ import { FieldType } from '@ngx-formly/core';
       [formlyAttributes]="field"
       (change)="onChange(option.value, $any($event.target).checked)"
     >
-      {{ to.label }}
+      {{ option.label }}
     </nb-checkbox>
+    <p
+      style="margin-top: 10px;"
+      class="subtitle-2"
+      *ngIf="to['descriptionAfter']"
+    >
+      {{ to.description }}
+    </p>
   `,
+  styles: [
+    `
+      nb-checkbox:not(:only-child) {
+        margin-right: 1.5rem;
+      }
+      .nb-checkbox-vertical {
+        display: block;
+      }
+    `,
+  ],
 })
 export class FormlyFieldMultiCheckbox extends FieldType {
   override defaultOptions = {
     templateOptions: {
       options: [],
-      formCheck: 'custom', // 'custom' | 'custom-inline' | 'custom-switch' | 'stacked' | 'inline'
+      horizontal: true,
+      description:
+        'Questo checkbox segnala che la nuova entità è una nuova entità',
+      descriptionBefore: true,
+      descriptionAfter: false,
     },
   };
 

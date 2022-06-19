@@ -5,11 +5,17 @@ import { FieldType } from '@ngx-formly/core';
   selector: 'formly-field-map',
   template: `
     <label for="inputIcon" class="label">
-      <a href="https://akveo.github.io/eva-icons/#/" target="_blank"
-        >Clicca qui per scegliere l'icona</a
-      ></label
-    >
-    <div style="display: flex">
+      <a [href]="to['iconListUrl']" target="_blank">
+        {{ to['iconListLabel'] }}
+      </a>
+    </label>
+
+    <nb-form-field>
+      <nb-icon
+        nbPrefix
+        [icon]="formControl.value"
+        [pack]="to['iconPack']"
+      ></nb-icon>
       <input
         nbInput
         type="text"
@@ -27,32 +33,16 @@ import { FieldType } from '@ngx-formly/core';
         [formControl]="$any(formControl)"
         [formlyAttributes]="field"
       />
-      <nb-icon
-        *ngIf="!formControl.invalid"
-        style="font-size: 2.25rem"
-        [icon]="formControl.value"
-        pack="eva"
-      ></nb-icon>
-    </div>
+    </nb-form-field>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormlyFieldIcon extends FieldType {
-  get point() {
-    if (!this.formControl.value) {
-      return {};
-    }
-    return {
-      lat: this.formControl.value.lat,
-      lng: this.formControl.value.lng,
-      label: this.formControl.value.label,
-    };
-  }
-
-  // newMapPointSelected(event: PointSelected) {
-  //   console.log(event);
-  //   this.formControl.setValue(event);
-  //   //this.newCategoria.coordinates = event;
-  //   this.formControl.markAsTouched();
-  // }
+  override defaultOptions = {
+    templateOptions: {
+      iconListUrl: 'https://akveo.github.io/eva-icons/#/',
+      iconListLabel: 'Click here to see all icons',
+      iconPack: 'eva',
+    },
+  };
 }

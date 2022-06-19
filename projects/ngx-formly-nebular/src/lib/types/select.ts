@@ -1,7 +1,5 @@
-import { Component, ViewChild, NgZone } from '@angular/core';
-import { SelectControlValueAccessor } from '@angular/forms';
+import { Component } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'formly-field-select',
@@ -25,13 +23,13 @@ import { take } from 'rxjs/operators';
       [formlyAttributes]="field"
     >
       <ng-container
-        *ngIf="to.options | formlySelectOptions: field | async as opts"
+        *ngFor="
+          let opt of to.options | formlySelectOptions: field | async as opts
+        "
       >
-        <ng-container *ngFor="let opt of opts">
-          <nb-option [value]="opt.value" [disabled]="opt.disabled">{{
-            opt.label
-          }}</nb-option>
-        </ng-container>
+        <nb-option [value]="opt.value" [disabled]="opt.disabled">{{
+          opt.label
+        }}</nb-option>
       </ng-container>
     </nb-select>
 
@@ -53,21 +51,23 @@ import { take } from 'rxjs/operators';
         [compareWith]="to['compareWith']"
         [placeholder]="to.placeholder ?? ''"
       >
-        <ng-container
-          *ngIf="to.options | formlySelectOptions: field | async as opts"
+        <nb-option
+          *ngFor="
+            let opt of to.options | formlySelectOptions: field | async as opts
+          "
+          [value]="opt.value"
+          [disabled]="opt.disabled"
+          >{{ opt.label }}</nb-option
         >
-          <nb-option
-            *ngFor="let opt of opts"
-            [value]="opt.value"
-            [disabled]="opt.disabled"
-            >{{ opt.label }}</nb-option
-          >
-        </ng-container>
       </nb-select>
     </ng-template>
   `,
 })
 export class FormlyFieldSelect extends FieldType {
+  constructor() {
+    super();
+  }
+
   override defaultOptions = {
     templateOptions: {
       options: [],
@@ -76,37 +76,4 @@ export class FormlyFieldSelect extends FieldType {
       },
     },
   };
-
-  // workaround for https://github.com/angular/angular/issues/10010
-  @ViewChild(SelectControlValueAccessor) set selectAccessor(s: any) {
-    if (!s) return;
-
-    const writeValue = s.writeValue.bind(s);
-    if (s._getOptionId(s.value) === null) {
-      writeValue(s.value);
-    }
-
-    s.writeValue = (value: any) => {
-      const id = s._idCounter;
-      writeValue(value);
-      if (value === null) {
-        this.ngZone.onStable
-          .asObservable()
-          .pipe(take(1))
-          .subscribe(() => {
-            if (
-              id !== s._idCounter &&
-              s._getOptionId(value) === null &&
-              s._elementRef.nativeElement.selectedIndex !== -1
-            ) {
-              writeValue(value);
-            }
-          });
-      }
-    };
-  }
-
-  constructor(private ngZone: NgZone) {
-    super();
-  }
 }

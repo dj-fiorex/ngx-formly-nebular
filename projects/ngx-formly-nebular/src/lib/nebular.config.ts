@@ -7,6 +7,7 @@ import {
   FormlyFieldTextArea,
   FormlyFieldMultiCheckbox,
   FormlyFieldIcon,
+  FormlyFieldDate,
 } from './types/types';
 import { FormlyWrapperFormField } from './wrappers/wrappers';
 
@@ -19,7 +20,7 @@ export const FIELD_TYPE_COMPONENTS = [
   FormlyFieldTextArea,
   FormlyFieldMultiCheckbox,
   FormlyFieldIcon,
-
+  FormlyFieldDate,
   // wrappers
   FormlyWrapperFormField,
 ];
@@ -59,6 +60,11 @@ export const NEBULAR_FORMLY_CONFIG: ConfigOption = {
     {
       name: 'icon',
       component: FormlyFieldIcon,
+      wrappers: ['form-field'],
+    },
+    {
+      name: 'date',
+      component: FormlyFieldDate,
       wrappers: ['form-field'],
     },
   ],

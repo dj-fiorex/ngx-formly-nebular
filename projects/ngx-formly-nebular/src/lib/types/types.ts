@@ -5,3 +5,4 @@ export { FormlyFieldRadio } from './radio';
 export { FormlyFieldTextArea } from './textarea';
 export { FormlyFieldSelect } from './select';
 export { FormlyFieldIcon } from './icon';
+export { FormlyFieldDate } from './date';

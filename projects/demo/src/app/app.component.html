@@ -1,0 +1,32 @@
+<nb-layout>
+  <nb-layout-header fixed>Company Name</nb-layout-header>
+
+  <nb-sidebar>Sidebar Content</nb-sidebar>
+
+  <nb-layout-column>
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit(model)"
+      class="container-fluid"
+    >
+      <formly-form
+        [form]="form"
+        [fields]="fields"
+        [model]="model"
+      ></formly-form>
+      <button
+        nbButton
+        [disabled]="!form.valid"
+        type="submit"
+        class="btn btn-default"
+      >
+        Submit
+      </button>
+    </form>
+
+    <h2>Result</h2>
+    <code>
+      <pre>{{ model | json }}</pre>
+    </code>
+  </nb-layout-column>
+</nb-layout>
