@@ -7,7 +7,7 @@
     "start:lib": "ng serve ngx-formly-nebular",
     "build:demo": "ng build demo",
     "build:lib": "ng build ngx-formly-nebular",
-    "publish:lib": "npm run build:lib && cd projects/ngx-formly-nebular && npm publish",
+    "publish:lib": "npm run build:lib && cd dist/ngx-formly-nebular && npm publish",
     "watch:lib": "ng build ngx-formly-nebular --watch --configuration development",
     "watch:demo": "ng build demo --watch --configuration development",
     "test": "ng test"
